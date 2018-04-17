@@ -1,4 +1,4 @@
-function [agt,eaten,new]=eat(agt,cn)
+function [agt,eaten]=eat(agt,cn)
 
 global PARAM IT_STATS N_IT
 %eating function for class FOX
@@ -64,13 +64,12 @@ if d<=spd&length(nrst)>0    %if there is at least one  rabbit within the search 
         MESSAGES.dead(nrst)=1;       %send message to rabbit so it knows it's dead!
         
         %make new zombie
-        [agt, new] = breed(agt,cn);
-%         new=fox(0,cfood/2,pos,PARAM.F_SPD,0); 
+        new=fox(0,cfood/2,pos,PARAM.F_SPD,0); 
     end
 end
 if hungry==1
     agt.food=cfood-1;     %if no food, then reduce agent food by one unit
 end
 
-new=[];
+
    
