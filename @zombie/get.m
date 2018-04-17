@@ -1,9 +1,9 @@
 function val=get(c,prop_name)
 
-%standard function to allow extraction of memory parameters from fox object
+%standard function to allow extraction of memory parameters from zombie object
 
 switch prop_name
-   
+
 case 'age'
    val=c.age;
 case 'food'
@@ -13,8 +13,7 @@ case 'pos'
 case 'speed'
      val=c.speed;
 case 'last_breed'
-     val=c.last_breed;  
-otherwise 
+     val=c.last_breed;
+otherwise
    error('invalid field name')
 end
-

@@ -8,7 +8,7 @@ function [nagent,nn]=agnt_solve(agent)
 %nagent - list of updated agent structures
 %nn - total number of live agents at end of update
 
-%Created by Dawn Walker 3/4/08 
+%Created by Dawn Walker 3/4/08
 
 n=length(agent);    %current no. of agents
 n_new=0;    %no. new agents
@@ -17,17 +17,17 @@ prev_n=n;   %remember current agent number at the start of this iteration
 %execute existing agent update loop
 for cn=1:n
 	curr=agent{cn};
-    if isa(curr,'rabbit')|isa(curr,'fox')
-        if isa(curr,'fox')
-            disp('fox')
-            [curr,eaten,newZ]=eat(curr,cn);               %eating rules (rabbits eat food, foxes eat rabbits)
+    if isa(curr,'person')|isa(curr,'zombie')
+        if isa(curr,'zombie')
+            disp('zombie')
+            [curr,eaten,newZ]=eat(curr,cn);               %eating rules (persons eat food, zombies eat persons)
             n_new=n_new+1;
             agent{n+n_new}=newZ;
-        elseif (isa(curr,'rabbit'))
-            disp('rabbit')
-            [curr,eaten]=eat(curr,cn);               %eating rules (rabbits eat food, foxes eat rabbits)
+        elseif (isa(curr,'person'))
+            disp('person')
+            [curr,eaten]=eat(curr,cn);               %eating rules (persons eat food, zombies eat persons)
         end
-       
+
         if eaten==0
             curr=migrate(curr,cn);              %if no food was eaten, then migrate in search of some
         end
@@ -46,4 +46,3 @@ end
 
 temp_n=n+n_new; %new agent number (before accounting for agent deaths)
 [nagent,nn]=update_messages(agent,prev_n,temp_n);   %function which update message list and 'kills off' dead agents.
-

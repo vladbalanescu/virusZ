@@ -1,12 +1,12 @@
 function plot_results(agent,nsteps,fmode,outImages)
 
-    %Plots 2d patch images of agents onto background 
+    %Plots 2d patch images of agents onto background
     %%%%%%%%%%%
     %plot_results(agent,nr,nf)
     %%%%%%%%%%%
     %agent - current list of agent structures
-    %nr -  no. rabbits
-    %nf -  no. rabbits
+    %nr -  no. persons
+    %nf -  no. persons
 
     % Modified by D Walker 3/4/08
 
@@ -24,21 +24,21 @@ function plot_results(agent,nsteps,fmode,outImages)
     nr=IT_STATS.tot_r;
     nf=IT_STATS.tot_f;
     disp(strcat('Iteration = ',num2str(N_IT)))
-    disp(strcat('No. new rabbits = ',num2str(IT_STATS.div_r(N_IT+1))))
-    disp(strcat('No. new foxes = ',num2str(IT_STATS.div_f(N_IT+1))))
+    disp(strcat('No. new persons = ',num2str(IT_STATS.div_r(N_IT+1))))
+    disp(strcat('No. new zombies = ',num2str(IT_STATS.div_f(N_IT+1))))
     disp(strcat('No. agents migrating = ',num2str(IT_STATS.mig(N_IT+1))))
-    disp(strcat('No. rabbits dying = ',num2str(IT_STATS.died_r(N_IT+1))))
-    disp(strcat('No. foxes dying = ',num2str(IT_STATS.died_f(N_IT+1))))
-    disp(strcat('No. rabbits eaten = ',num2str(IT_STATS.eaten(N_IT+1))))
+    disp(strcat('No. persons dying = ',num2str(IT_STATS.died_r(N_IT+1))))
+    disp(strcat('No. zombiees dying = ',num2str(IT_STATS.died_f(N_IT+1))))
+    disp(strcat('No. persons eaten = ',num2str(IT_STATS.eaten(N_IT+1))))
 
     %plot line graphs of agent numbers and remaining food
     if (fmode==false) || (N_IT==nsteps) || ((fmode==true) && (rem(N_IT , CONTROL_DATA.fmode_display_every)==0))
-        
-        %Plotting takes time so fmode has been introduced to only plot every n=CONTROL_DATA.fmode_display_every iterations
-        %This value increases with the number of agents (see ecolab.m L57-61) as plotting more agents takes longer. 
-        %fmode can be turned off in the command line - see ecolab documentation
 
-        col{1}='r-';                   %set up colours that will represent different cell types red for rabbits, blue for foxes
+        %Plotting takes time so fmode has been introduced to only plot every n=CONTROL_DATA.fmode_display_every iterations
+        %This value increases with the number of agents (see virusZ.m L57-61) as plotting more agents takes longer.
+        %fmode can be turned off in the command line - see virusZ documentation
+
+        col{1}='r-';                   %set up colours that will represent different cell types red for persons, blue for zombiees
         col{2}='b-';
 
         tot_food=IT_STATS.tfood;       %total food remaining
@@ -56,15 +56,15 @@ function plot_results(agent,nsteps,fmode,outImages)
         subplot(3,1,3),cla
         subplot(3,1,3),plot((1:N_IT+1),tot_food(1:N_IT+1),'m-');
         subplot(3,1,3),axis([0 nsteps 0 tot_food(1)]);
-        subplot(3,1,1),title('No. live rabbits');
-        subplot(3,1,2),title('No. live foxes');
+        subplot(3,1,1),title('No. live persons');
+        subplot(3,1,2),title('No. live zombies');
         subplot(3,1,3),title('Total food');
         drawnow
 
-        %create plot of agent locations. 
+        %create plot of agent locations.
         f3=figure(3);
 
-        bm=ENV_DATA.bm_size;   
+        bm=ENV_DATA.bm_size;
         typ=MESSAGES.atype;
         clf                             %clear previous plot
         set(f3,'Units','Normalized');
@@ -83,11 +83,11 @@ function plot_results(agent,nsteps,fmode,outImages)
 
         for cn=1:length(agent)                          %cycle through each agent in turn
             if typ(cn)>0                                %only plot live agents
-                pos=get(agent{cn},'pos');               %extract current position    
-                if isa(agent{cn},'rabbit')              %choose plot colour depending on agent type
+                pos=get(agent{cn},'pos');               %extract current position
+                if isa(agent{cn},'person')              %choose plot colour depending on agent type
                     ro=plot(pos(1),pos(2),'r*');
-                else   
-                    fo=plot(pos(1),pos(2),'b.'); 
+                else
+                    fo=plot(pos(1),pos(2),'b.');
                     set(fo,'MarkerSize',30);
                 end
             end
@@ -106,7 +106,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         uicontrol('Style','pushbutton',...
                   'String','PAUSE',...
                   'Position',[20 20 60 20], ...
-                  'Callback', 'global ENV_DATA; ENV_DATA.pause=true; display(ENV_DATA.pause); clear ENV_DATA;'); 
+                  'Callback', 'global ENV_DATA; ENV_DATA.pause=true; display(ENV_DATA.pause); clear ENV_DATA;');
 
         while CONTROL_DATA.pause==true    % pause/resume functionality - allows pan and zoom during pause...
             pan on
@@ -126,15 +126,15 @@ function plot_results(agent,nsteps,fmode,outImages)
             uicontrol('Style','pushbutton',...
                       'String','RESUME',...
                       'Position',[20 20 60 20], ...
-                      'Callback', 'global ENV_DATA; ENV_DATA.pause=false; clear ENV_DATA;'); 
+                      'Callback', 'global ENV_DATA; ENV_DATA.pause=false; clear ENV_DATA;');
         end
         title(['Iteration no.= ' num2str(N_IT) '.  No. agents = ' num2str(n)]);
         axis off
-        drawnow 
+        drawnow
         if outImages==true  %this outputs images if outImage parameter set to true!!
             if fmode==true; %this warning is to show not all iterations are being output if fmode=true!
                     disp('WARNING*** fastmode set - To output all Images for a movie, set fmode to false(fast mode turned off) ');
-            end 
+            end
             filenamejpg=[sprintf('%04d',N_IT)];
             eval(['print -djpeg90 agent_plot_' filenamejpg]); %print new jpeg to create movie later
         end

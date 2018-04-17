@@ -17,7 +17,7 @@ function [nagent,nn]=update_messages(agent,prev_n,temp_n)
 %MESSAGES is a data structure containing information that agents need to
 %broadcast to each other
    %    MESSAGES.atype - n x 1 array listing the type of each agent in the model
-   %    (1=rabbit, 2-fox, 3=dead agent)
+   %    (1=person, 2-zombie, 3=dead agent)
    %    MESSAGES.pos - list of every agent position in [x y]
    %    MESSAGE.dead - n x1 array containing ones for agents that have died
    %    in the current iteration
@@ -33,17 +33,17 @@ for cn=1:temp_n
         dead=1;
     elseif cn<=prev_n                   %agent is not new, therefore it might have died
         dead=MESSAGES.dead(cn);         %will be one for agents that have died, zero otherwise
-    else 
+    else
         dead=0;
     end
     if dead==0                          %if agent is not dead
         nagent{cn}=agent{cn};           %copy object into the new list
         pos=get(agent{cn},'pos');
-        MESSAGES.pos(cn,:)=pos;                    
-         if isa(agent{cn},'rabbit')
+        MESSAGES.pos(cn,:)=pos;
+         if isa(agent{cn},'person')
              MESSAGES.atype(cn)=1;
              IT_STATS.tot_r(N_IT+1)=IT_STATS.tot_r(N_IT+1)+1;
-         elseif isa(agent{cn},'fox')
+         elseif isa(agent{cn},'zombie')
              MESSAGES.atype(cn)=2;
              IT_STATS.tot_f(N_IT+1)=IT_STATS.tot_f(N_IT+1)+1;
          end
