@@ -71,7 +71,7 @@ if ~isempty(xf)
         mig=1;
     end
 end
-mig=0;
+% mig=0;
 if mig==0                                   %person has been unable to find food, so chooses a random direction to move in
     cnt=1;
     dir=rand*2*pi;
