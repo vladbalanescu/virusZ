@@ -1,15 +1,15 @@
-function [agent]=create_agents(nr,nf)
+function [agent]=create_agents(np,nz)
 
  %creates the objects representing each agent
 
 %agent - cell array containing list of objects representing agents
-%nr - number of persons
-%nf - number of zombies
+%np - number of persons
+%nz - number of zombies
 
 %global parameters
 %ENV_DATA - data structure representing the environment (initialised in
 %create_environment.m)
-%MESSAGES is a data structure containing information that agents need to
+%MESSAGES is a data structure containing inzormation that agents need to
 %broadcast to each other
 %PARAM - structure containing values of all parameters governing agent
 %behaviour for the current simulation
@@ -17,13 +17,13 @@ function [agent]=create_agents(nr,nf)
  global ENV_DATA MESSAGES PARAM
 
 bm_size=ENV_DATA.bm_size;
-rloc=(bm_size-1)*rand(nr,2)+1;      %generate random initial positions for persons
-floc=(bm_size-1)*rand(nf,2)+1;      %generate random initial positions for zombiees
+rloc=(bm_size-1)*rand(np,2)+1;      %generate random initial positions for persons
+floc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
 
 MESSAGES.pos=[rloc;floc];
 
 %generate all person agents and record their positions in ENV_MAT_R
-for r=1:nr
+for r=1:np
     pos=rloc(r,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
@@ -34,8 +34,8 @@ for r=1:nr
 end
 
 %generate all zombie agents and record their positions in ENV_MAT_F
-for f=nr+1:nr+nf
-    pos=floc(f-nr,:);
+for f=np+1:np+nz
+    pos=floc(f-np,:);
     %create zombie agents with random ages between 0 and 10 days and random
     %food levels 20-40
     age=ceil(rand*10);
