@@ -23,11 +23,11 @@ global PARAM IT_STATS N_IT MESSAGES
    %    in the current iteration
 
 klld=0;
-thold=PARAM.F_MINFOOD;      %threshold minimum food value for death to occur
+thold=PARAM.Z_MINFOOD;      %threshold minimum food value for death to occur
 cfood=agt.food;             %get current agent food level
 age=agt.age;                %get current agent age
 
-if cfood<=thold|age>PARAM.F_MAXAGE      %if food level < threshold and age > max age then agent dies
+if cfood<=thold|age>PARAM.Z_MAXAGE      %if food level < threshold and age > max age then agent dies
     IT_STATS.died_f(N_IT+1)=IT_STATS.died_f(N_IT+1)+1;  %update statistics
     MESSAGES.dead(cn)=1;                %update message list
     klld=1;

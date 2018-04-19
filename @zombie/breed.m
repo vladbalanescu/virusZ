@@ -13,8 +13,8 @@ global PARAM IT_STATS N_IT
 %frequency parameters for both zombies and persons
 
 
-flim=PARAM.F_FOODBRD;       %minimum food level required for breeding
-tlim=PARAM.F_BRDFQ;         %minimum interval required for breeding
+flim=PARAM.Z_FOODBRD;       %minimum food level required for breeding
+tlim=PARAM.Z_BRDFQ;         %minimum interval required for breeding
 cfood=agt.food;             %get current agent food level
 age=agt.age;                %get current agent age
 last_breed=agt.last_breed;  %length of time since agent last reproduced
@@ -22,7 +22,7 @@ pos=agt.pos;                %current position
 
 % if last_breed>=tlim  %if food > threshold and age > interval, then create offspring
    disp('breed')
-   new=zombie(0,cfood/2,pos,PARAM.F_SPD,0);   %new zombie agent
+   new=zombie(0,cfood/2,pos,PARAM.Z_SPD,0);   %new zombie agent
    agt.food=cfood/2; %divide food level between 2 agents
    agt.last_breed=0;
    agt.age=age+1;

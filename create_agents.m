@@ -29,8 +29,8 @@ for r=1:np
     %food levels 20-40
     age=ceil(rand*10);
     food=ceil(rand*20)+20;
-    lbreed=round(rand*PARAM.R_BRDFQ);
-    agent{r}=person(age,food,pos,PARAM.R_SPD,lbreed);
+    lbreed=round(rand*PARAM.P_BRDFQ);
+    agent{r}=person(age,food,pos,PARAM.P_SPD,lbreed);
 end
 
 %generate all zombie agents and record their positions in ENV_MAT_F
@@ -40,6 +40,6 @@ for f=np+1:np+nz
     %food levels 20-40
     age=ceil(rand*10);
     food=ceil(rand*20)+20;
-    lbreed=round(rand*PARAM.F_BRDFQ);
-    agent{f}=zombie(age,food,pos,PARAM.F_SPD,lbreed);
+    lbreed=round(rand*PARAM.Z_BRDFQ);
+    agent{f}=zombie(age,food,pos,PARAM.Z_SPD,lbreed);
 end

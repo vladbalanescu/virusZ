@@ -8,13 +8,13 @@ function create_params
 
 global PARAM
 
-    PARAM.R_SPD=2;         %speed of movement - units per itn (person)
-    PARAM.F_SPD=5;         %speed of movement - units per itn (zombie)
-    PARAM.R_BRDFQ=10;      %breeding frequency - iterations
-    PARAM.F_BRDFQ=20;
-    PARAM.R_MINFOOD=0;      %minimum food threshold before agent dies
-    PARAM.F_MINFOOD=0;
-    PARAM.R_FOODBRD=10;     %minimum food threshold for breeding
-    PARAM.F_FOODBRD=10;
-    PARAM.R_MAXAGE=50;      %maximum age allowed
-    PARAM.F_MAXAGE=50;
+    PARAM.P_SPD=5;         %speed of movement - units per itn (person)
+    PARAM.Z_SPD=5;         %speed of movement - units per itn (zombie)
+    PARAM.P_BRDFQ=10;      %breeding frequency - iterations
+    PARAM.Z_BRDFQ=20;
+    PARAM.P_MINFOOD=0;      %minimum food threshold before agent dies
+    PARAM.Z_MINFOOD=0;
+    PARAM.P_FOODBRD=10;     %minimum food threshold for breeding
+    PARAM.Z_FOODBRD=10;
+    PARAM.P_MAXAGE=50;      %maximum age allowed
+    PARAM.Z_MAXAGE=50;
