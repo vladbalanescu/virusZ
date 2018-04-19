@@ -1,4 +1,4 @@
-function [agt]=migrate(agt,cn)
+function [agt]=migrate(agt,cn, agents)
 
 %migration functions for class person
 %agt=person object
@@ -38,7 +38,8 @@ spd=agt.speed;                       %person migration speed in units per iterat
 %loc_food is food distribution in local search area
 %xmin in minimum x co-ord of this area
 %ymin is minimum y co-ord of this area
-[loc_food,xmin,ymin]=extract_local_food(cpos,spd)
+[loc_food,xmin,ymin]=extract_local_food(cpos,spd);
+[loc_zombies, xmin2, ymin2]=extract_local_zombies(cpos, spd, agents)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -57,7 +57,7 @@ end
 loc_zombies=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
 
 for n = 1:length(agent)
-    disp(agent(1))
+    disp(l)
     input('look here')
 end
 

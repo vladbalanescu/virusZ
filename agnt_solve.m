@@ -26,7 +26,11 @@ for cn=1:n
             [curr,eaten]=eat(curr,cn);               %eating rules (persons eat food, zombies eat persons)
         end
         
-        curr=migrate(curr,cn);              %if no food was eaten, then migrate in search of some
+        if isa(curr,'person')
+            curr=migrate(curr,cn, agent);              %if no food was eaten, then migrate in search of some
+        elseif isa(curr,'zombie')
+            curr=migrate(curr,cn);
+        end
         
         [curr,klld]=die(curr,cn);                %death rule (from starvation or old age)
         if klld==0

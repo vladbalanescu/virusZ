@@ -1,0 +1,22 @@
+zloc=(30-1)*rand(2,2)+1
+
+% disp(zloc(1, 2))
+
+minX = 15;
+maxX = 25;
+minY = 15;
+maxY = 25;
+
+% nearZombies = [,]
+a = nan(0,2)
+count
+for i = 1:length(zloc)
+    zx = zloc(i, 1);
+    zy = zloc(i, 2);
+%     nearZombies.cat([zx, zy]);
+end
+% 
+% disp(nearZombies)
+% nearZombies = nearZombies + [1, 2]
+% 
+% disp(nearZombies)
