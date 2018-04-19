@@ -17,14 +17,14 @@ function [agent]=create_agents(np,nz)
  global ENV_DATA MESSAGES PARAM
 
 bm_size=ENV_DATA.bm_size;
-rloc=(bm_size-1)*rand(np,2)+1;      %generate random initial positions for persons
-floc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
+ploc=(bm_size-1)*rand(np,2)+1;      %generate random initial positions for persons
+zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
 
-MESSAGES.pos=[rloc;floc];
+MESSAGES.pos=[ploc;zloc];
 
 %generate all person agents and record their positions in ENV_MAT_R
 for r=1:np
-    pos=rloc(r,:);
+    pos=ploc(r,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
     age=ceil(rand*10);
@@ -35,7 +35,7 @@ end
 
 %generate all zombie agents and record their positions in ENV_MAT_F
 for f=np+1:np+nz
-    pos=floc(f-np,:);
+    pos=zloc(f-np,:);
     %create zombie agents with random ages between 0 and 10 days and random
     %food levels 20-40
     age=ceil(rand*10);
