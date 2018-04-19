@@ -45,7 +45,7 @@ rpos=MESSAGES.pos(rb,:);                                     %extract positions 
 csep=sqrt((rpos(:,1)-pos(:,1)).^2+(rpos(:,2)-pos(:,2)).^2);  %calculate distance to all persons
 [d,ind]=min(csep);                                            %d is distance to closest person, ind is index of that person
 nrst=rb(ind);                                                %index of nearest person(s)
-new=[]
+new=[];
 
 if d<=spd&length(nrst)>0    %if there is at least one  person within the search radius
     if length(nrst)>1       %if more than one person located at same distance then randomly pick one to head towards

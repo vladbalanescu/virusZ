@@ -1,4 +1,4 @@
-function virusZ(size,nr,nf,nsteps,fmode,outImages)
+function virusZ(size,np,nz,nsteps,fmode,outImages)
 
 %ECO_LAB  agent-based predator-prey model, developed for
 %demonstration purposes only for University of Sheffield module
@@ -7,11 +7,11 @@ function virusZ(size,nr,nf,nsteps,fmode,outImages)
 %AUTHOR Dawn Walker d.c.walker@sheffield.ac.uk
 %Created April 2008
 
-%virusZ(size,nr,nf,nsteps)
+%virusZ(size,np,nz,nsteps)
 %size = size of model environmnet in km (sugested value for plotting
 %purposes =50)
-%nr - initial number of person agents
-%nf - initial number of zombie agents
+%np - initial number of person agents
+%nz - initial number of zombie agents
 %nsteps - number of iterations required
 
 %definition of global variables:
@@ -39,9 +39,9 @@ function virusZ(size,nr,nf,nsteps,fmode,outImages)
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(nr,nf);       %create nr person and nf zombie agents and places them in a cell array called 'agents'
-    create_messages(nr,nf,agent);       %sets up the initial message lists
-    initialise_results(nr,nf,nsteps);   %initilaises structure for storing results
+    [agent]=create_agents(np,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    create_messages(np,nz,agent);       %sets up the initial message lists
+    initialise_results(np,nz,nsteps);   %initilaises structure for storing results
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %MODEL EXECUTION
     for n_it=1:nsteps                   %the main execution loop
@@ -69,5 +69,5 @@ function virusZ(size,nr,nf,nsteps,fmode,outImages)
             end
         end
     end
-eval(['save results_nr_' num2str(nr) '_nf_' num2str(nf) '.mat IT_STATS ENV_DATA' ]);
+eval(['save results_np_' num2str(np) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
 clear global

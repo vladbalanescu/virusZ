@@ -19,12 +19,10 @@ for cn=1:n
 	curr=agent{cn};
     if isa(curr,'person')|isa(curr,'zombie')
         if isa(curr,'zombie')
-            disp('zombie')
             [curr,eaten,newZ]=eat(curr,cn);               %eating rules (persons eat food, zombies eat persons)
             n_new=n_new+1;
             agent{n+n_new}=newZ;
         elseif (isa(curr,'person'))
-            disp('person')
             [curr,eaten]=eat(curr,cn);               %eating rules (persons eat food, zombies eat persons)
         end
 
