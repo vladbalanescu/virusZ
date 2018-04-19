@@ -38,11 +38,16 @@ spd=agt.speed;                       %person migration speed in units per iterat
 %loc_food is food distribution in local search area
 %xmin in minimum x co-ord of this area
 %ymin is minimum y co-ord of this area
-[loc_food,xmin,ymin]=extract_local_food(cpos,spd);
+[loc_food,xmin,ymin]=extract_local_food(cpos,spd)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 mig=0;                          %flag will be reset to one if person migrates
-[xf,yf]=find(loc_food);        %extract all rows (=x) and columns (=y) of food matrix where food is present
+[xf,yf]=find(loc_food)        %extract all rows (=x) and columns (=y) of food matrix where food is present
+input('loc food')
+
+% IF THERE IS FOOD, MIGRATE TOWARDS IT - IF THERE IS A ZOMBIE, MIGRATE AWAY
+% FROM  IT
 if ~isempty(xf)
     xa=xmin+xf-1;                  %x co-ordiantes of all squares containing food
     ya=ymin+yf-1;                  %y co-ordiantes of all squares containing food
@@ -71,6 +76,7 @@ if ~isempty(xf)
         mig=1;
     end
 end
+
 % mig=0;
 if mig==0                                   %person has been unable to find food, so chooses a random direction to move in
     cnt=1;
