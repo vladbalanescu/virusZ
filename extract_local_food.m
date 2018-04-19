@@ -16,7 +16,7 @@ global ENV_DATA
    %    of food
 
 x=cpos(1);
-y=y;
+y=cpos(2);
    
 if x>ENV_DATA.bm_size-spd
     xmax=ENV_DATA.bm_size;
