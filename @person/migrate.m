@@ -43,8 +43,8 @@ spd=agt.speed;                       %person migration speed in units per iterat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 mig=0;                          %flag will be reset to one if person migrates
-[xf,yf]=find(loc_food)        %extract all rows (=x) and columns (=y) of food matrix where food is present
-input('loc food')
+[xf,yf]=find(loc_food);        %extract all rows (=x) and columns (=y) of food matrix where food is present
+
 
 % IF THERE IS FOOD, MIGRATE TOWARDS IT - IF THERE IS A ZOMBIE, MIGRATE AWAY
 % FROM  IT

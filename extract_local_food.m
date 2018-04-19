@@ -1,7 +1,7 @@
-function [loc_zombies,xmin,ymin]=extract_local_zombies(cpos,spd)
+function [loc_food,xmin,ymin]=extract_local_food(cpos,spd)
 
-%Extracts array representing distribution of zombies surrounding the local
-%area of an agent at position cpos [x,y] and with search radius = spd.
+%Extracts array representing distribution of food available in the local
+%area of an agent at position cpos [x,y] and with search radius =spd.
 %This function also makes corrections in the case that the agent is close
 %to the model edge
 
@@ -15,28 +15,25 @@ global ENV_DATA
    %    ENV_DATA.food is  a bm_size x bm_size array containing distribution
    %    of food
 
-x=cpos(1);
-y=cpos(2);
-   
-if x>ENV_DATA.bm_size-spd
+if cpos(1)>ENV_DATA.bm_size-spd
     xmax=ENV_DATA.bm_size;
 else
-    xmax=x+spd;
+    xmax=cpos(1)+spd;
 end
-if x<spd+1
+if cpos(1)<spd+1
     xmin=1;
 else
-    xmin=x-spd;
+    xmin=cpos(1)-spd;
 end
-if y>ENV_DATA.bm_size-spd
+if cpos(2)>ENV_DATA.bm_size-spd
     ymax=ENV_DATA.bm_size;
 else
-    ymax=y+spd;
+    ymax=cpos(2)+spd;
 end
-if y<spd+1
+if cpos(2)<spd+1
     ymin=1;
 else
-    ymin=y-spd;
+    ymin=cpos(2)-spd;
 end
 
 loc_food=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
