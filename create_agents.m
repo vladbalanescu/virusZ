@@ -17,9 +17,14 @@ function [agent]=create_agents(np,nz)
  global ENV_DATA MESSAGES PARAM
 
 bm_size=ENV_DATA.bm_size;
-ploc=(bm_size-1)*rand(np,2)+1      %generate random initial positions for persons
-zloc=(bm_size-1)*rand(nz,2)+1      %generate random initial positions for zombiees
-input('initial positions')
+ploc=(bm_size-1)*rand(np,2)+1;      %generate random initial positions for persons
+zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
+ENV_DATA.zombies_locs = zloc;
+disp('create agents')
+disp('zombie locs')
+disp(ENV_DATA.zombies_locs);
+disp('zombie locs length')
+disp(length(ENV_DATA.zombies_locs(:, 1)))
 
 MESSAGES.pos=[ploc;zloc];
 

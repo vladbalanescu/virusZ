@@ -15,8 +15,9 @@ global ENV_DATA
    %    ENV_DATA.food is  a bm_size x bm_size array containing distribution
    %    of food
 
-x=cpos(1)
-y=cpos(2)
+x=cpos(1);
+y=cpos(2);
+nearZombies = nan(0,2);
 % disp(ENV_DATA.bm_size)
 % disp(spd)
 
@@ -54,10 +55,12 @@ end
 % same for y
 
 % TODO: search this x and y range for zombies.
-loc_zombies=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
-
-for n = 1:length(agent)
-    disp(l)
-    input('look here')
+for (n=1:length(ENV_DATA.zombies_locs(:, 1)))
+   x = ENV_DATA.zombies_locs(n, 1)
+   y = ENV_DATA.zombies_locs(n, 2)
+   
+   if (x)
+   input('search near zombies')
 end
+loc_zombies=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
 

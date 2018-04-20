@@ -1,4 +1,4 @@
-zloc=(30-1)*rand(2,2)+1
+zloc=(30-1)*rand(30,2)+1
 
 % disp(zloc(1, 2))
 

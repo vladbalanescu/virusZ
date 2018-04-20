@@ -34,8 +34,13 @@ for cn=1:n
             curr=migrate(curr,cn, agent);              %if no food was eaten, then migrate in search of some
         elseif isa(curr,'zombie')
             curr=migrate(curr,cn);
-            new_zombie_locs(zombie_count, :) = curr.pos;
-            zombie_count = zombie_count + 1;
+            disp('curr pos')
+            disp(length(ENV_DATA.zombies_locs))
+            disp(ENV_DATA.zombies_locs)
+            new_zombie_locs(count, :) = curr.pos;
+            disp('env zombies list')
+            disp(ENV_DATA.zombies_locs)
+            input('zombie migrate')
         end
         
         [curr,klld]=die(curr,cn);                %death rule (from starvation or old age)
@@ -50,9 +55,6 @@ for cn=1:n
        agent{cn}=curr;                          %up date cell array with modified agent data structure
     end
 end
-
-% Finished processing all agents for this itteration
-ENV_DATA.zombies_locs = new_zombie_locs;
 
 temp_n=n+n_new; %new agent number (before accounting for agent deaths)
 [nagent,nn]=update_messages(agent,prev_n,temp_n);   %function which update message list and 'kills off' dead agents.

@@ -1,9 +1,6 @@
 function [loc_zombies,xmin,ymin]=extract_local_zombies(cpos,spd, agent)
 
-%Extracts array representing distribution of zombies surrounding the local
-%area of an agent at position cpos [x,y] and with search radius = spd.
-%This function also makes corrections in the case that the agent is close
-%to the model edge
+%Extracts list of zombie coordinates that are nearby
 
 global ENV_DATA
 
@@ -15,8 +12,10 @@ global ENV_DATA
    %    ENV_DATA.food is  a bm_size x bm_size array containing distribution
    %    of food
 
-x=cpos(1)
-y=cpos(2)
+x=cpos(1);
+y=cpos(2);
+nearZombies = nan(0,2);
+count=1;
 % disp(ENV_DATA.bm_size)
 % disp(spd)
 
@@ -54,10 +53,16 @@ end
 % same for y
 
 % TODO: search this x and y range for zombies.
-loc_zombies=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
-
-for n = 1:length(agent)
-    disp(agent(1))
-    input('look here')
+for (n=1:length(ENV_DATA.zombies_locs(:, 1)))
+   x = ENV_DATA.zombies_locs(n, 1)
+   y = ENV_DATA.zombies_locs(n, 2)
+   
+   if (((x >= xmin) && (x <= xmax)) && ((y >= ymin) && (y <= ymax)))
+        nearZombies(count, 1) = x;
+        nearZombies(count, 2) = y;
+        count = count + 1;
+    end
 end
+% loc_zombies=ENV_DATA.food(xmin:xmax,ymin:ymax);    %extract distribution of food within the local search radius
+loc_zombies=nearZombies;
 

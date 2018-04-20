@@ -109,43 +109,19 @@ if (length(loc_zombies(:,1)) >= 1)
     end
     
     nx=pos(1) + (xdir*(spd));
-    ny=pos(2) + (ydir*(spd));
-        
-    if (nx > ENV_DATA.bm_size)
-        nx = ENV_DATA.bm_size - 1
-    end
-    
-    if (ny > ENV_DATA.bm_size)
-        ny = ENV_DATA.bm_size - 1
-    end
-    
-    if (nx <= 1)
-        nx = 1
-    end
-    
-    if (ny <= 1)
-        ny = 1
-    end
-    
-    
+    ny=ydir*(spd);
     npos=[nx ny];
     
-%     disp('trying to run')
-%     disp('pos')
-%     disp(pos)
-%     disp('nearest zombie x')
-%     disp(xa(nrst))
-%     disp('nearest zombie y')
-%     disp(ya(nrst))
-%     disp('npos')
-%     disp(npos)
-    
-%     shft=find(npos>=ENV_DATA.bm_size);
-%     npos(shft)=ENV_DATA.bm_size-rand;
-%     shft=find(npos<=1);
-%     npos(shft)=1+rand;
-%     
-    mig=1;
+    disp('trying to run')
+    disp('pos')
+    disp(pos)
+    disp('nearest zombie x')
+    disp(xa(nrst))
+    disp('nearest zombie y')
+    disp(ya(nrst))
+    disp('npos')
+    disp(npos)
+    input('run data')
 %     csep=sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2);   %calculate distance to all food
 %     [d,nrst]=min(csep);     %d is distance to closest food, nrst is index of that food
     

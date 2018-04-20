@@ -25,6 +25,8 @@ global  ENV_DATA
 pos=agt.pos;                            %extract current position
 cfood=agt.food;                         %get current agent food level
 cpos=round(pos);                        %round up position to nearest grid point
+disp('cpos')
+disp(cpos)
 pfood=ENV_DATA.food(cpos(1),cpos(2));   %obtain environment food level at current location
 
 if pfood>=1                             %if food exists at this location
