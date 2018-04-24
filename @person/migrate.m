@@ -110,7 +110,8 @@ if (length(loc_zombies(:,1)) >= 1)
     
     nx=pos(1) + (xdir*(spd));
     ny=pos(2) + (ydir*(spd));
-        
+    
+%     If outside of the map, put on the edge
     if (nx > ENV_DATA.bm_size)
         nx = ENV_DATA.bm_size - 1
     end
