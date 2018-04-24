@@ -68,7 +68,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         typ=MESSAGES.atype;
         clf                             %clear previous plot
         set(f3,'Units','Normalized');
-        set(f3,'Position',[0.05 0.05 0.66 0.66]);
+        set(f3,'Position',[0 0.03 0.50 0.50]);
         v=(1:bm);
         [X,Y]=meshgrid(v);
         Z=ENV_DATA.food;
