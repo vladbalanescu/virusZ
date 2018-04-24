@@ -84,11 +84,12 @@ function plot_results(agent,nsteps,fmode,outImages)
         for cn=1:length(agent)                          %cycle through each agent in turn
             if typ(cn)>0                                %only plot live agents
                 pos=get(agent{cn},'pos');               %extract current position
-                if isa(agent{cn},'person')              %choose plot colour depending on agent type
-                    ro=plot(pos(1),pos(2),'r*');
-                else
-                    fo=plot(pos(1),pos(2),'b.');
-                    set(fo,'MarkerSize',30);
+                if isa(agent{cn},'rabbit')              %choose plot colour depending on agent type
+                    ro=plot(pos(1),pos(2),'g.');
+                    set(ro,'MarkerSize',30);
+                else   
+                    fo=plot(pos(1),pos(2),'rx'); 
+                    set(fo,'MarkerSize',10);
                 end
             end
         end
