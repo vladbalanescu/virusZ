@@ -45,7 +45,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         n=nr(N_IT+1)+nf(N_IT+1);             %current agent number
         f2=figure(2);
         set(f2,'Units','Normalized');
-        set(f2,'Position',[0.5 0.5 0.45 0.4]);
+        set(f2,'Position',[0.55 0.55 0.4 0.3]);
 
         subplot(3,1,1),cla
         subplot(3,1,1),plot((1:N_IT+1),nr(1:N_IT+1),col{1});
