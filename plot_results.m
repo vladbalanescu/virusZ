@@ -112,7 +112,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         while CONTROL_DATA.pause==true    % pause/resume functionality - allows pan and zoom during pause...
             pan on
             axis off
-            title(['Iteration no.= ' num2str(N_IT) '.  No. agents = ' num2str(n)]);
+            title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n)]);
             text(-2.6, 7.7, 'PAUSED', 'Color', 'r');
             drawnow
             uicontrol('Style','pushbutton',...
@@ -129,7 +129,7 @@ function plot_results(agent,nsteps,fmode,outImages)
                       'Position',[20 20 60 20], ...
                       'Callback', 'global ENV_DATA; ENV_DATA.pause=false; clear ENV_DATA;');
         end
-        title(['Iteration no.= ' num2str(N_IT) '.  No. agents = ' num2str(n)]);
+        title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n)]);
         axis off
         drawnow
         if outImages==true  %this outputs images if outImage parameter set to true!!
