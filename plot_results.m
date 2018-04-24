@@ -38,8 +38,8 @@ function plot_results(agent,nsteps,fmode,outImages)
         %This value increases with the number of agents (see virusZ.m L57-61) as plotting more agents takes longer.
         %fmode can be turned off in the command line - see virusZ documentation
 
-        col{1}='r-';                   %set up colours that will represent different cell types red for persons, blue for zombiees
-        col{2}='b-';
+        col{1}='g-';                   %set up colours that will represent different cell types red for persons, blue for zombiees
+        col{2}='r-';
 
         tot_food=IT_STATS.tfood;       %total food remaining
         n=nr(N_IT+1)+nf(N_IT+1);             %current agent number
@@ -56,9 +56,9 @@ function plot_results(agent,nsteps,fmode,outImages)
         subplot(3,1,3),cla
         subplot(3,1,3),plot((1:N_IT+1),tot_food(1:N_IT+1),'m-');
         subplot(3,1,3),axis([0 nsteps 0 tot_food(1)]);
-        subplot(3,1,1),title('No. live persons');
-        subplot(3,1,2),title('No. live zombies');
-        subplot(3,1,3),title('Total food');
+        subplot(3,1,1),title('No. healthy people');
+        subplot(3,1,2),title('No. zombies');
+        subplot(3,1,3),title('Total food in the city');
         drawnow
 
         %create plot of agent locations.
