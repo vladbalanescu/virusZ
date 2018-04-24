@@ -25,7 +25,8 @@ function virusZ(size,np,nz,nsteps,fmode,outImages)
     clear global
     close all
 
-    global N_IT IT_STATS ENV_DATA CONTROL_DATA
+    global N_IT IT_STATS ENV_DATA CONTROL_DATA N_STEPS
+    N_STEPS = nsteps;
 
     if nargin == 4
         fmode=true;

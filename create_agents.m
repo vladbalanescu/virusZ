@@ -30,6 +30,7 @@ MESSAGES.pos=[ploc;zloc];
 
 %generate all person agents and record their positions in ENV_MAT_R
 for r=1:np
+    input('creating person')
     pos=ploc(r,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
@@ -41,6 +42,7 @@ end
 
 %generate all zombie agents and record their positions in ENV_MAT_F
 for f=1:nz
+    input('creating zombie')
     pos=zloc(f,:);
     %create zombie agents with random ages between 0 and 10 days and random
     %food levels 20-40

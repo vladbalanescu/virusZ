@@ -10,7 +10,7 @@ function plot_results(agent,nsteps,fmode,outImages)
 
     % Modified by D Walker 3/4/08
 
-    global N_IT IT_STATS ENV_DATA MESSAGES CONTROL_DATA
+    global N_IT IT_STATS ENV_DATA MESSAGES CONTROL_DATA N_STEPS
     %declare variables that can be seen by all functions
     %N_IT is current iteration number
     %ENV_DATA - data structure representing the environment (initialised in
@@ -84,7 +84,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         for cn=1:length(agent)                          %cycle through each agent in turn
             if typ(cn)>0                                %only plot live agents
                 pos=get(agent{cn},'pos');               %extract current position
-                if isa(agent{cn},'rabbit')              %choose plot colour depending on agent type
+                if isa(agent{cn},'person')              %choose plot colour depending on agent type
                     ro=plot(pos(1),pos(2),'g.');
                     set(ro,'MarkerSize',30);
                 else   
