@@ -10,8 +10,8 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
 %virusZ(size,np,nz,nsteps)
 %size = size of model environmnet in km (sugested value for plotting
 %purposes =50)
-%pd1 - initial density of people in the first square
-%pd2 - initial density of people in the second square
+%pd1 - initial density in the first square
+%pd2 - initial d
 %nz - initial number of zombie agents
 %nsteps - number of iterations required
 
@@ -41,9 +41,9 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(pd1,pd2,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
-    create_messages(pd1,pd2,nz,agent);       %sets up the initial message lists
-    initialise_results(pd1,pd2,nz,nsteps);   %initilaises structure for storing results
+    [agent]=create_agents(np,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    create_messages(np,nz,agent);       %sets up the initial message lists
+    initialise_results(np,nz,nsteps);   %initilaises structure for storing results
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %MODEL EXECUTION
     for n_it=1:nsteps                   %the main execution loop
@@ -71,5 +71,5 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
             end
         end
     end
-eval(['save results_pd1_pd2_' num2str(pd1) '_' num2str(pd2) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
+eval(['save results_np_' num2str(np) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
 clear global

@@ -20,14 +20,14 @@ bm_size=ENV_DATA.bm_size;
 diffInterval = (pd2-pd1)/bm_size;
 mapDivision = pd1:diffInterval:pd2;
 nps = 1:bm_size;
-globalPloc = [];
+globalPloc = nan(1,2);
 
 for i=1:bm_size-1
-    xlocs = i + rand(nps(i),1)
-    ylocs = (bm_size-2).*rand(nps(i),1)+1
-    globalPloc = [globalPloc, cat(2,xlocs,ylocs)'];
+    xlocs = i + rand(nps(i),1);
+    ylocs = (bm_size-2).*rand(nps(i),1)+1;
+    globalPloc = [globalPloc, [xlocs,ylocs)];
 end
-globalPloc'
+globalPloc
 input('')
     
 

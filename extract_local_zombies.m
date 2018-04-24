@@ -54,8 +54,8 @@ end
 
 % TODO: search this x and y range for zombies.
 for (n=1:length(ENV_DATA.zombies_locs(:, 1)))
-   x = ENV_DATA.zombies_locs(n, 1)
-   y = ENV_DATA.zombies_locs(n, 2)
+   x = ENV_DATA.zombies_locs(n, 1);
+   y = ENV_DATA.zombies_locs(n, 2);
    
    if (((x >= xmin) && (x <= xmax)) && ((y >= ymin) && (y <= ymax)))
         nearZombies(count, 1) = x;

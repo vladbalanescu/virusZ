@@ -89,7 +89,7 @@ function plot_results(agent,nsteps,fmode,outImages)
                     set(ro,'MarkerSize',30);
                 else   
                     fo=plot(pos(1),pos(2),'rx'); 
-                    set(fo,'MarkerSize',10);
+                    set(fo,'MarkerSize',20);
                 end
             end
         end
