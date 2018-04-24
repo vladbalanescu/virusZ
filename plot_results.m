@@ -55,7 +55,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         subplot(3,1,2),axis([0 nsteps 0 1.1*max(nf)]);
         subplot(3,1,3),cla
         subplot(3,1,3),plot((1:N_IT+1),tot_food(1:N_IT+1),'m-');
-        subplot(3,1,3),axis([0 nsteps 0 tot_food(1)]);
+        subplot(3,1,3),axis([0 nsteps 0 tot_food(1)*1.5]);
         subplot(3,1,1),title('No. healthy people');
         subplot(3,1,2),title('No. zombies');
         subplot(3,1,3),title('Total food in the city');
