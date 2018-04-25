@@ -1,4 +1,4 @@
-function initialise_results(nr,nf,nsteps)
+function initialise_results(pd1,pd2,nf,nsteps)
 
  global  IT_STATS ENV_DATA
 
@@ -20,7 +20,8 @@ function initialise_results(nr,nf,nsteps)
 
 
  tf=sum(sum(ENV_DATA.food));            %remaining food is summed over all squares in the environment
- IT_STATS.tot(1)=nr+nf;
- IT_STATS.tot_r(1)=nr;
+ tPeople = pd2-pd1;
+ IT_STATS.tot(1)=tPeople+nf;
+ IT_STATS.tot_r(1)=tPeople;
  IT_STATS.tot_f(1)=nf;
  IT_STATS.tfood(1)=tf;

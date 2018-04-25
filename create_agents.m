@@ -27,11 +27,11 @@ for i=1:bm_size-1
     ylocs = (bm_size-2).*rand(nps(i),1)+1
     globalPloc = [globalPloc, cat(2,xlocs,ylocs)'];
 end
-globalPloc'
-input('')
-    
+globalPloc = globalPloc'; %transpose the x,y location matrix
+                          %old ploc is now globalPloc
 
-zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
+
+zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombies
 ENV_DATA.zombies_locs = zloc;
 disp('create agents')
 disp('zombie locs')
@@ -39,11 +39,11 @@ disp(ENV_DATA.zombies_locs);
 disp('zombie locs length')
 disp(length(ENV_DATA.zombies_locs(:, 1)))
 
-MESSAGES.pos=[ploc;zloc];
+MESSAGES.pos=[globalPloc;zloc];
 
 %generate all person agents and record their positions in ENV_MAT_R
-for r=1:np    
-    pos=ploc(r,:);
+for r=1:np
+    pos=globalPloc(r,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
     age=ceil(rand*10);
@@ -53,7 +53,7 @@ for r=1:np
 end
 
 %generate all zombie agents and record their positions in ENV_MAT_F
-for f=1:nz   
+for f=1:nz
     pos=zloc(f,:);
     %create zombie agents with random ages between 0 and 10 days and random
     %food levels 20-40
