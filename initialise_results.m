@@ -1,6 +1,6 @@
 function initialise_results(pd1,pd2,nf,nsteps)
 
- global  IT_STATS ENV_DATA
+ global  IT_STATS ENV_DATA NRPEOPLE
 
 %set up data structure to record statistics for each model iteration
 %IT_STATS  -  is data structure containing statistics on model at each
@@ -20,8 +20,7 @@ function initialise_results(pd1,pd2,nf,nsteps)
 
 
  tf=sum(sum(ENV_DATA.food));            %remaining food is summed over all squares in the environment
- tPeople = pd2-pd1;
- IT_STATS.tot(1)=tPeople+nf;
- IT_STATS.tot_r(1)=tPeople;
+ IT_STATS.tot(1)=NRPEOPLE+nf;
+ IT_STATS.tot_r(1)=NRPEOPLE;
  IT_STATS.tot_f(1)=nf;
  IT_STATS.tfood(1)=tf;

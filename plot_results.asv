@@ -112,7 +112,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         while CONTROL_DATA.pause==true    % pause/resume functionality - allows pan and zoom during pause...
             pan on
             axis off
-            title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. people = ' num2str(nr)]);
+            title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. people = ' num2str(nr)] '/'  ' -  No. people = ' num2str(nr)]);
             text(-2.6, 7.7, 'PAUSED', 'Color', 'r');
             drawnow
             uicontrol('Style','pushbutton',...
