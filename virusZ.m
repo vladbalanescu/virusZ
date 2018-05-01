@@ -50,11 +50,6 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
     for n_it=1:nsteps                   %the main execution loop
         N_IT=n_it;
         [agent,n]=agnt_solve(agent);     %the function which calls the rules
-%         agent
-%         nsteps
-%         fmode
-%         outImages
-%         input('');
         plot_results(agent,nsteps,fmode,outImages); %updates results figures and structures
         %mov(n_it)=getframe(fig3);
         if n<=0                          %if no more agents, then stop simulation
