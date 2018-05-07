@@ -45,11 +45,9 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
     [agent]=create_agents(pd1,pd2,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
     
     thisClass = class(agent{1})
-%     disp(thisClass)
-%     disp()
-%     disp(thisClass == 'zombie')
-%     disp(thisClass == 'person')
-    if(strcmp(thisClass, 'double'))
+    disp(thisClass)
+    disp(thisClass == 'agent'
+    if(class(agent{1}) == 'agent')
        disp('yay')
        return
     end

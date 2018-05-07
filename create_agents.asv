@@ -23,24 +23,7 @@ bm_size = ENV_DATA.bm_size;
 pd_step = (pd2-pd1)/(bm_size-1);
 pd_array = pd1:pd_step:pd2;
 pd_sum = sum(pd_array);
-pop_array = no_people * (pd_array / pd_sum)
-
-% If a column has less than 0.5 agents, no agents will appear in that
-% column and the model is invalid.
-is_valid_pop = pop_array < 0.5
-
-if (sum(is_valid_pop) ~= 0)
-% If there are any column popluations with less than 0.5 agents
-% the model has become inaccurate
-
-disp('ERROR')
-disp('You are trying to represent to great a population spread with too few agents.')
-disp('Reduce the difference in population densities or the size of the map')
-agent{1}=0;
-return
-end
-
-
+pop_array = no_people * (pd_array / pd_sum);
 
 
 % Calculate how many people each agent represents (using unrounded
