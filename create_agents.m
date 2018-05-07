@@ -14,42 +14,57 @@ function [agent]=create_agents(pd1,pd2,nz)
 %PARAM - structure containing values of all parameters governing agent
 %behaviour for the current simulation
 
- global ENV_DATA MESSAGES PARAM
+global ENV_DATA MESSAGES PARAM AGENT_WORTH
 
-bm_size=ENV_DATA.bm_size;
-diffInterval = (pd2-pd1)/bm_size;
-mapDivision = pd1:diffInterval:pd2;
-nps = 1:bm_size;
-globalPloc = [];
+% Calculate a spread of agents to represtnt a population gradiant.
+% This is done by splitting the map into columns and generating agents proportional to the population density in said column
+no_people = ENV_DATA.MAX_AGENTS - nz;
+bm_size = ENV_DATA.bm_size;
+pd_step = (pd2-pd1)/(bm_size-1);
+pd_array = pd1:pd_step:pd2
+pd_sum = sum(pd_array);
+pop_array = no_people * (pd_array / pd_sum);
 
-for i=1:bm_size-1
-    xlocs = i + rand(nps(i),1)
-    ylocs = (bm_size-2).*rand(nps(i),1)+1
-    globalPloc = [globalPloc, cat(2,xlocs,ylocs)'];
+% Calculate how many people each agent represents (using unrounded
+% populations)
+population_in_column = bm_size * pd_array(1);
+AGENT_WORTH = num2str(round(population_in_column / pop_array(1)));
+
+% Round the populations
+pop_array = round(pop_array)
+
+
+
+
+% Generate positions for the population according to the gradiant
+ploc = [];
+for i=1:bm_size-1   
+    xlocs = i + rand(pop_array(i),1);
+    ylocs = (bm_size-2).*rand(pop_array(i),1)+1;
+    ploc = [ploc, cat(2,xlocs,ylocs)'];
 end
-globalPloc'
-input('')
-    
+ploc = ploc';
+
 
 zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
 ENV_DATA.zombies_locs = zloc;
 disp('create agents')
 disp('zombie locs')
 disp(ENV_DATA.zombies_locs);
-disp('zombie locs length')
-disp(length(ENV_DATA.zombies_locs(:, 1)))
+disp('zombie locs length');
+disp(length(ENV_DATA.zombies_locs(:, 1)));
 
 MESSAGES.pos=[ploc;zloc];
 
 %generate all person agents and record their positions in ENV_MAT_R
-for r=1:np    
-    pos=ploc(r,:);
+for p=1:length(ploc)    
+    pos=ploc(p,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
     age=ceil(rand*10);
     food=ceil(rand*20)+20;
     lbreed=round(rand*PARAM.P_BRDFQ);
-    agent{r}=person(age,food,pos,PARAM.P_SPD,lbreed);
+    agent{p}=person(age,food,pos,PARAM.P_SPD,lbreed);
 end
 
 %generate all zombie agents and record their positions in ENV_MAT_F

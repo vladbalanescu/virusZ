@@ -108,8 +108,14 @@ if (length(loc_zombies(:,1)) >= 1)
         ydir = -1
     end
     
-    nx=pos(1) + (xdir*(spd));
-    ny=pos(2) + (ydir*(spd));
+    min_fit = 0.2;
+    max_fit = 0.9;
+    
+%     Todo: put this fitness as a property of the agent and on a curve
+    fitness = min_fit + rand()*(max_fit-min_fit);
+    
+    nx=pos(1) + (fitness*xdir*(spd));
+    ny=pos(2) + (fitness*ydir*(spd));
     
 %     If outside of the map, put on the edge
     if (nx > ENV_DATA.bm_size)

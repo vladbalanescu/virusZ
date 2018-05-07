@@ -10,7 +10,7 @@ function plot_results(agent,nsteps,fmode,outImages)
 
     % Modified by D Walker 3/4/08
 
-    global N_IT IT_STATS ENV_DATA MESSAGES CONTROL_DATA N_STEPS
+    global N_IT IT_STATS ENV_DATA MESSAGES CONTROL_DATA N_STEPS AGENT_WORTH TOTAL_POP
     %declare variables that can be seen by all functions
     %N_IT is current iteration number
     %ENV_DATA - data structure representing the environment (initialised in
@@ -46,6 +46,8 @@ function plot_results(agent,nsteps,fmode,outImages)
         f2=figure(2);
         set(f2,'Units','Normalized');
         set(f2,'Position',[0.55 0.55 0.4 0.3]);
+
+        thisTitle = [' no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n) ' [1 agent ~ ' AGENT_WORTH ' people]']
 
         subplot(3,1,1),cla
         subplot(3,1,1),plot((1:N_IT+1),nr(1:N_IT+1),col{1});
@@ -112,7 +114,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         while CONTROL_DATA.pause==true    % pause/resume functionality - allows pan and zoom during pause...
             pan on
             axis off
-            title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n)]);
+           Iteration title(thisTitle);
             text(-2.6, 7.7, 'PAUSED', 'Color', 'r');
             drawnow
             uicontrol('Style','pushbutton',...
@@ -129,7 +131,7 @@ function plot_results(agent,nsteps,fmode,outImages)
                       'Position',[20 20 60 20], ...
                       'Callback', 'global ENV_DATA; ENV_DATA.pause=false; clear ENV_DATA;');
         end
-        title(['Iteration no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n)]);
+        title(thisTitle);
         axis off
         drawnow
         if outImages==true  %this outputs images if outImage parameter set to true!!

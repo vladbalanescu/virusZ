@@ -1,4 +1,4 @@
-function [loc_zombies,xmin,ymin]=extract_local_zombies(cpos,spd, agent)
+function [loc_zombies,xmin,ymin]=extract_local_zombies(cpos,spd, agent);
 
 %Extracts list of zombie coordinates that are nearby
 
