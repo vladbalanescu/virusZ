@@ -1,4 +1,4 @@
-function [agent]=create_agents(pd1,pd2,nz)
+function [agent]=create_agents(pd1,pd2,nz, outbreakPos)
 
  %creates the objects representing each agent
 
@@ -23,21 +23,21 @@ bm_size = ENV_DATA.bm_size;
 pd_step = (pd2-pd1)/(bm_size-1);
 pd_array = pd1:pd_step:pd2;
 pd_sum = sum(pd_array);
-pop_array = no_people * (pd_array / pd_sum)
+pop_array = no_people * (pd_array / pd_sum);
 
 % If a column has less than 0.5 agents, no agents will appear in that
 % column and the model is invalid.
-is_valid_pop = pop_array < 0.5
+is_valid_pop = pop_array < 0.5;
 
 if (sum(is_valid_pop) ~= 0)
-% If there are any column popluations with less than 0.5 agents
-% the model has become inaccurate
+    % If there are any column popluations with less than 0.5 agents
+    % the model has become inaccurate
 
-disp('ERROR')
-disp('You are trying to represent to great a population spread with too few agents.')
-disp('Reduce the difference in population densities or the size of the map')
-agent{1}=0;
-return
+    disp('ERROR')
+    disp('You are trying to represent to great a population spread with too few agents.')
+    disp('Reduce the difference in population densities or the size of the map')
+    agent{1}=0;
+    return
 end
 
 
@@ -46,10 +46,10 @@ end
 % Calculate how many people each agent represents (using unrounded
 % populations)
 population_in_column = bm_size * pd_array(1);
-AGENT_WORTH = num2str(round(population_in_column / pop_array(1)));
+AGENT_WORTH = num2str(roundn((population_in_column / pop_array(1)), 2));
 
 % Round the populations
-pop_array = round(pop_array)
+pop_array = round(pop_array);
 
 
 
@@ -61,16 +61,39 @@ for i=1:bm_size-1
     ylocs = (bm_size-2).*rand(pop_array(i),1)+1;
     ploc = [ploc, cat(2,xlocs,ylocs)'];
 end
-ploc = ploc';
+ploc = ploc'
 
 
-zloc=(bm_size-1)*rand(nz,2)+1;      %generate random initial positions for zombiees
+
+%generate initial positions for zombiees
+
+if (strcmp(outbreakPos, 'PD1'))
+   outbreak_x = 1
+elseif (strcmp(outbreakPos, 'PD2'))
+   outbreak_x = bm_size
+else
+    disp('ERROR!')
+    disp('Invalid outbreak starting position. [PD1 or PD2]')
+    return
+end
+
+if (nz == 1)
+    outbreak_y = bm_size / 2
+elseif(nz > 1)
+    interval = bm_size / (nz + 1)
+    outbreak_y = interval : interval : bm_size
+else
+    disp('ERROR!')
+    disp('Invalid number of zombies. [Must be positive]')
+    return
+end
+
+zloc(:, 2) = outbreak_y
+zloc(:, 1) = outbreak_x
+
+% zloc=(bm_size-1)*rand(nz,2)+1;      
 ENV_DATA.zombies_locs = zloc;
-disp('create agents')
-disp('zombie locs')
-disp(ENV_DATA.zombies_locs);
-disp('zombie locs length');
-disp(length(ENV_DATA.zombies_locs(:, 1)));
+
 
 MESSAGES.pos=[ploc;zloc];
 

@@ -90,7 +90,7 @@ if (length(loc_zombies(:,1)) >= 1)
     ya=loc_zombies(:,2);                 %y co-ordiantes of all zombies
 
     % Find distances to all nearby zombies and narrow down the nearest one
-    zombie_distances = sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2)
+    zombie_distances = sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2);
     [d,nrst]=min(zombie_distances);
     if length(nrst)>1
         s=round(rand*(length(nrst)-1))+1
@@ -98,14 +98,14 @@ if (length(loc_zombies(:,1)) >= 1)
     end
     
 %   Decide a direction
-    xdir = 1
-    ydir = 1
+    xdir = 1;
+    ydir = 1;
     if (xa(nrst) > pos(1))
-        xdir = -1
+        xdir = -1;
     end
     
     if (ya(nrst) > pos(2))
-        ydir = -1
+        ydir = -1;
     end
     
     min_fit = 0.2;

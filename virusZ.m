@@ -1,4 +1,4 @@
-function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
+function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
 
 %VirusZ  agent-based predator-prey model, developed for
 %demonstration purposes only for University of Sheffield module
@@ -13,6 +13,11 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
 %pd1 - initial density of people in the first square
 %pd2 - initial density of people in the second square
 %nz - initial number of zombie agents
+%outbreakPos - The initial outbreak position of zombies (keys from create_agents.m below)
+% 'PD1' - start the outbreak at population density 1
+% 'PD2' - start the outbreak at population density 2
+
+
 %nsteps - number of iterations required
 
 %definition of global variables:
@@ -42,15 +47,11 @@ function virusZ(size,pd1,pd2,nz,nsteps,fmode,outImages)
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(pd1,pd2,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    [agent]=create_agents(pd1,pd2,nz, outbreakPos);       %create np person and nz zombie agents and places them in a cell array called 'agents'
     
-    thisClass = class(agent{1})
-%     disp(thisClass)
-%     disp()
-%     disp(thisClass == 'zombie')
-%     disp(thisClass == 'person')
+    thisClass = class(agent{1});
     if(strcmp(thisClass, 'double'))
-       disp('yay')
+       disp('Error generating agents - exiting.')
        return
     end
     

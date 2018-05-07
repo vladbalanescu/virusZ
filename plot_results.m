@@ -47,7 +47,7 @@ function plot_results(agent,nsteps,fmode,outImages)
         set(f2,'Units','Normalized');
         set(f2,'Position',[0.55 0.55 0.4 0.3]);
 
-        thisTitle = [' no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n) ' [1 agent ~ ' AGENT_WORTH ' people]']
+        thisTitle = [' no.= ' num2str(N_IT) '/' num2str(N_STEPS) ' -  No. agents = ' num2str(n) ' [1 agent ~ ' AGENT_WORTH ' people]'];
 
         subplot(3,1,1),cla
         subplot(3,1,1),plot((1:N_IT+1),nr(1:N_IT+1),col{1});
