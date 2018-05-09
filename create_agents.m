@@ -25,6 +25,8 @@ pd_array = pd1:pd_step:pd2;
 pd_sum = sum(pd_array);
 pop_array = no_people * (pd_array / pd_sum);
 
+
+
 % If a column has less than 0.5 agents, no agents will appear in that
 % column and the model is invalid.
 is_valid_pop = pop_array < 0.5;
@@ -56,9 +58,10 @@ pop_array = round(pop_array);
 
 % Generate positions for the population according to the gradiant
 ploc = [];
-for i=1:bm_size-1   
-    xlocs = i + rand(pop_array(i),1);
-    ylocs = (bm_size-2).*rand(pop_array(i),1)+1;
+for i=0:bm_size - 1 
+    rand(pop_array(i + 1),1);
+    xlocs = i + rand(pop_array(i + 1),1);
+    ylocs = (bm_size-2).*rand(pop_array(i + 1),1)+1;
     ploc = [ploc, cat(2,xlocs,ylocs)'];
 end
 ploc = ploc'
@@ -68,28 +71,35 @@ ploc = ploc'
 %generate initial positions for zombiees
 
 if (strcmp(outbreakPos, 'PD1'))
-   outbreak_x = 1
+   outbreak_x = 1;
 elseif (strcmp(outbreakPos, 'PD2'))
-   outbreak_x = bm_size
+   outbreak_x = bm_size;
 else
-    disp('ERROR!')
-    disp('Invalid outbreak starting position. [PD1 or PD2]')
+    disp('ERROR!');
+    disp('Invalid outbreak starting position. [PD1 or PD2]');
     return
 end
 
 if (nz == 1)
-    outbreak_y = bm_size / 2
+    outbreak_y = bm_size / 2;
 elseif(nz > 1)
-    interval = bm_size / (nz + 1)
-    outbreak_y = interval : interval : bm_size
+    interval = bm_size / (nz + 1);
+    outbreak_y = interval : interval : bm_size;
+
 else
-    disp('ERROR!')
-    disp('Invalid number of zombies. [Must be positive]')
-    return
+    disp('ERROR!');
+    disp('Invalid number of zombies. [Must be > 0]');
+    return;
 end
 
-zloc(:, 2) = outbreak_y
-zloc(:, 1) = outbreak_x
+
+zloc(:, 2) = outbreak_y;
+zloc(:, 1) = outbreak_x;
+
+
+
+
+
 
 % zloc=(bm_size-1)*rand(nz,2)+1;      
 ENV_DATA.zombies_locs = zloc;
@@ -98,7 +108,7 @@ ENV_DATA.zombies_locs = zloc;
 MESSAGES.pos=[ploc;zloc];
 
 %generate all person agents and record their positions in ENV_MAT_R
-for p=1:length(ploc)    
+for p=1:length(ploc)
     pos=ploc(p,:);
     %create person agents with random ages between 0 and 10 days and random
     %food levels 20-40
@@ -116,5 +126,5 @@ for f=1:nz
     age=ceil(rand*10);
     food=ceil(rand*20)+20;
     lbreed=round(rand*PARAM.Z_BRDFQ);
-    agent{f}=zombie(age,food,pos,PARAM.Z_SPD,lbreed);
+    agent{f + no_people}=zombie(age,food,pos,PARAM.Z_SPD,lbreed);
 end

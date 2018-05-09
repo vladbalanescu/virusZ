@@ -47,7 +47,9 @@ function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(pd1,pd2,nz, outbreakPos);       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    [agent]=create_agents(pd1,pd2,nz, outbreakPos)       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    
+    
     
     thisClass = class(agent{1});
     if(strcmp(thisClass, 'double'))

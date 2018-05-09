@@ -21,7 +21,6 @@ last_breed=agt.last_breed;  %length of time since agent last reproduced
 pos=agt.pos;                %current position
 
 % if last_breed>=tlim  %if age > interval, then create offspring
-   disp('breed')
    new=zombie(0,cfood/2,pos,PARAM.Z_SPD,0);   %new zombie agent
    agt.food=cfood/2; %divide food level between 2 agents
    agt.last_breed=0;
