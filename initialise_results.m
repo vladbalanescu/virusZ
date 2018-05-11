@@ -25,3 +25,4 @@ function initialise_results(pd1,pd2,nf,nsteps)
  IT_STATS.tot_r(1)=tPeople;
  IT_STATS.tot_f(1)=nf;
  IT_STATS.tfood(1)=tf;
+ IT_STATS.zdist(1)=0;

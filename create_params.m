@@ -8,10 +8,10 @@ function create_params
 
 global PARAM
 
-    PARAM.P_SPD=1;         %speed of movement - units per itn (person)
-    PARAM.Z_SPD=1;         %speed of movement - units per itn (zombie)
-    PARAM.P_BRDFQ=10;      %breeding frequency - iterations
-    PARAM.Z_BRDFQ=20;
+    PARAM.P_SPD=2;         %speed of movement - units per itn (person)
+    PARAM.Z_SPD=2;         %speed of movement - units per itn (zombie)
+    PARAM.P_BRDFQ=0;      %breeding frequency - iterations
+    PARAM.Z_BRDFQ=0;
     PARAM.P_MINFOOD=0;      %minimum food threshold before agent dies
     PARAM.Z_MINFOOD=0;
     PARAM.P_FOODBRD=10;     %minimum food threshold for breeding

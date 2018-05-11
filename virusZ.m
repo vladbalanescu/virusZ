@@ -1,4 +1,4 @@
-function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
+function [speed, time] = virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,    fmode,outImages)
 
 %VirusZ  agent-based predator-prey model, developed for
 %demonstration purposes only for University of Sheffield module
@@ -31,9 +31,10 @@ function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
     clear global
     close all
 
-    global N_IT IT_STATS ENV_DATA CONTROL_DATA N_STEPS
+    global MAIN_SPEED MAIN_TIME N_IT IT_STATS ENV_DATA CONTROL_DATA N_STEPS OUT_POS
     
     N_STEPS = nsteps;
+    OUT_POS = outbreakPos;
 
     if nargin == 4
         fmode=true;
@@ -74,14 +75,14 @@ function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
     
 
     
-    
+    outDist = 0
     
     
     %MODEL EXECUTION
     for n_it=1:nsteps                   %the main execution loop
         N_IT=n_it;
         [agent,n]=agnt_solve(agent);     %the function which calls the rules
-        plot_results(agent,nsteps,fmode,outImages); %updates results figures and structures
+        plot_results(agent,nsteps,fmode,outImages, false); %updates results figures and structures
         %mov(n_it)=getframe(fig3);
         if n<=0                          %if no more agents, then stop simulation
             break
@@ -101,7 +102,25 @@ function virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,fmode,outImages)
                 disp('Fast mode convergence criteria satisfied - no zombies left alive ! > ')
                 break
             end
+            
+            if outDist > (size - 1)
+                disp('Fast mode convergence criteria satisfied - outbreak has spread to second population');
+                break
+            end
         end
+
+        % Update outbreak progress
+        if OUT_POS == 'PD1'    
+            outDist = max(ENV_DATA.zombies_locs(:,1));
+        else
+            outDist = ENV_DATA.bm_size - min(OUT_POS - ENV_DATA.zombies_locs);
+        end
+
+        IT_STATS.zdist(N_IT) = outDist;
     end
+
+    plot_results(agent,nsteps,fmode,outImages, true);
+    speed = MAIN_SPEED;
+    time = MAIN_TIME;
 eval(['save results_pd1_pd2_' num2str(pd1) '_' num2str(pd2) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
 clear global
