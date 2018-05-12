@@ -21,17 +21,19 @@ function [agt,eaten]=eat(agt,cn)
 
 
 global  ENV_DATA
+eaten = 0;
 
-pos=agt.pos;                            %extract current position
-cfood=agt.food;                         %get current agent food level
-cpos=round(pos);                        %round up position to nearest grid point
-pfood=ENV_DATA.food(cpos(1),cpos(2));   %obtain environment food level at current location
+% pos=agt.pos;                            %extract current position
+% cfood=agt.food;                         %get current agent food level
+% cpos=round(pos);                        %round up position to nearest grid point
+% pfood=ENV_DATA.food(cpos(1),cpos(2));   %obtain environment food level at current location
+% 
+% if pfood>=1                             %if food exists at this location
+% %     ENV_DATA.food(cpos(1),cpos(2))=ENV_DATA.food(cpos(1),cpos(2))-1;  %reduce environment food by one unit
+%     agt.food=cfood+0;                    %increase agent food by one unit
+%     eaten=1;                             %person has eaten - set flag to one
+% else
+%     agt.food=cfood-0;                   %decrease agent food by one unit
+%     eaten=0;                            %flag tells person to migrate
+% end
 
-if pfood>=1                             %if food exists at this location
-%     ENV_DATA.food(cpos(1),cpos(2))=ENV_DATA.food(cpos(1),cpos(2))-1;  %reduce environment food by one unit
-    agt.food=cfood+0;                    %increase agent food by one unit
-    eaten=1;                             %person has eaten - set flag to one
-else
-    agt.food=cfood-0;                   %decrease agent food by one unit
-    eaten=0;                            %flag tells person to migrate
-end

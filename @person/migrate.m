@@ -1,4 +1,4 @@
-function [agt]=migrate(agt,cn)
+function [agt]=migrate(agt,cn, agents)
 
 %migration functions for class person
 %agt=person object
@@ -38,7 +38,14 @@ spd=agt.speed;                       %person migration speed in units per iterat
 %loc_food is food distribution in local search area
 %xmin in minimum x co-ord of this area
 %ymin is minimum y co-ord of this area
-[loc_food,xmin,ymin]=extract_local_food(cpos,spd)
+[loc_food,xmin,ymin]=extract_local_food(cpos,spd);
+[loc_zombies, xmin2, ymin2]=extract_local_zombies(cpos, spd, agents);
+
+% disp('pos');
+% disp(pos);
+% disp('loc_zombies');
+% disp(loc_zombies);
+% input('agents local zombies')
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -48,7 +55,7 @@ mig=0;                          %flag will be reset to one if person migrates
 
 % IF THERE IS FOOD, MIGRATE TOWARDS IT - IF THERE IS A ZOMBIE, MIGRATE AWAY
 % FROM  IT
-if ~isempty(xf)
+if isempty(xf)
     xa=xmin+xf-1;                  %x co-ordiantes of all squares containing food
     ya=ymin+yf-1;                  %y co-ordiantes of all squares containing food
     csep=sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2);   %calculate distance to all food
@@ -76,6 +83,83 @@ if ~isempty(xf)
         mig=1;
     end
 end
+
+
+if (length(loc_zombies(:,1)) >= 1)
+    xa=loc_zombies(:,1);                  %x co-ordiantes of all zombies
+    ya=loc_zombies(:,2);                 %y co-ordiantes of all zombies
+
+    % Find distances to all nearby zombies and narrow down the nearest one
+    zombie_distances = sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2);
+    [d,nrst]=min(zombie_distances);
+    if length(nrst)>1
+        s=round(rand*(length(nrst)-1))+1
+        nrst=nrst(s);
+    end
+    
+%   Decide a direction
+    xdir = 1;
+    ydir = 1;
+    if (xa(nrst) > pos(1))
+        xdir = -1;
+    end
+    
+    if (ya(nrst) > pos(2))
+        ydir = -1;
+    end
+    
+    min_fit = 0.2;
+    max_fit = 0.9;
+    
+%     Todo: put this fitness as a property of the agent and on a curve
+    fitness = min_fit + rand()*(max_fit-min_fit);
+    
+    nx=pos(1) + (fitness*xdir*(spd));
+    ny=pos(2) + (fitness*ydir*(spd));
+    
+%     If outside of the map, put on the edge
+    if (nx > ENV_DATA.bm_size)
+        nx = ENV_DATA.bm_size - 1;
+    end
+    
+    if (ny > ENV_DATA.bm_size)
+        ny = ENV_DATA.bm_size - 1;
+    end
+    
+    if (nx <= 1)
+        nx = 1;
+    end
+    
+    if (ny <= 1)
+        ny = 1;
+    end
+    
+    
+    npos=[nx ny];
+    
+%     disp('trying to run')
+%     disp('pos')
+%     disp(pos)
+%     disp('nearest zombie x')
+%     disp(xa(nrst))
+%     disp('nearest zombie y')
+%     disp(ya(nrst))
+%     disp('npos')
+%     disp(npos)
+    
+%     shft=find(npos>=ENV_DATA.bm_size);
+%     npos(shft)=ENV_DATA.bm_size-rand;
+%     shft=find(npos<=1);
+%     npos(shft)=1+rand;
+%     
+    mig=1;
+%     csep=sqrt((xa-pos(:,1)).^2+(ya-pos(:,2)).^2);   %calculate distance to all food
+%     [d,nrst]=min(csep);     %d is distance to closest food, nrst is index of that food
+    
+%     npos(1)=pos(1)+spd*cos(dir);        %new x co-ordinate
+%     npos(2)=pos(2)+spd*sin(dir);        %new y co-ordinate
+end
+
 
 % mig=0;
 if mig==0                                   %person has been unable to find food, so chooses a random direction to move in

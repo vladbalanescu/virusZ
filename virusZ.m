@@ -1,6 +1,6 @@
-function virusZ(size,np,nz,nsteps,fmode,outImages)
+function [speed, time] = virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,    fmode,outImages)
 
-%ECO_LAB  agent-based predator-prey model, developed for
+%VirusZ  agent-based predator-prey model, developed for
 %demonstration purposes only for University of Sheffield module
 %COM3001/6006/6009
 
@@ -10,8 +10,14 @@ function virusZ(size,np,nz,nsteps,fmode,outImages)
 %virusZ(size,np,nz,nsteps)
 %size = size of model environmnet in km (sugested value for plotting
 %purposes =50)
-%np - initial number of person agents
+%pd1 - initial density of people in the first square
+%pd2 - initial density of people in the second square
 %nz - initial number of zombie agents
+%outbreakPos - The initial outbreak position of zombies (keys from create_agents.m below)
+% 'PD1' - start the outbreak at population density 1
+% 'PD2' - start the outbreak at population density 2
+
+
 %nsteps - number of iterations required
 
 %definition of global variables:
@@ -25,7 +31,10 @@ function virusZ(size,np,nz,nsteps,fmode,outImages)
     clear global
     close all
 
-    global N_IT IT_STATS ENV_DATA CONTROL_DATA
+    global MAIN_SPEED MAIN_TIME N_IT IT_STATS ENV_DATA CONTROL_DATA N_STEPS OUT_POS
+    
+    N_STEPS = nsteps;
+    OUT_POS = outbreakPos;
 
     if nargin == 4
         fmode=true;
@@ -39,15 +48,41 @@ function virusZ(size,np,nz,nsteps,fmode,outImages)
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(np,nz);       %create np person and nz zombie agents and places them in a cell array called 'agents'
-    create_messages(np,nz,agent);       %sets up the initial message lists
-    initialise_results(np,nz,nsteps);   %initilaises structure for storing results
+    [agent]=create_agents(pd1,pd2,nz, outbreakPos);       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    
+    
+    
+    thisClass = class(agent{1});
+    if(strcmp(thisClass, 'double'))
+       disp('Error generating agents - exiting.')
+       return
+    end
+    
+    create_messages(pd1,pd2,nz,agent);       %sets up the initial message lists
+    initialise_results(pd1,pd2,nz,nsteps);   %initilaises structure for storing results
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    
+   
+    %     Validation of input params
+    % 0.5 * ENV_DATA.MAX_AGENTS
+    if (size > 0.5 * ENV_DATA.MAX_AGENTS)
+        disp('ERROR!')
+        disp('Please enter a map size that is half or less than the maximum number of agents.')
+        return
+    end
+    
+    
+
+    
+    outDist = 0;
+    
+    
     %MODEL EXECUTION
     for n_it=1:nsteps                   %the main execution loop
         N_IT=n_it;
         [agent,n]=agnt_solve(agent);     %the function which calls the rules
-        plot_results(agent,nsteps,fmode,outImages); %updates results figures and structures
+        plot_results(agent,nsteps,fmode,outImages, false); %updates results figures and structures
         %mov(n_it)=getframe(fig3);
         if n<=0                          %if no more agents, then stop simulation
             break
@@ -67,7 +102,25 @@ function virusZ(size,np,nz,nsteps,fmode,outImages)
                 disp('Fast mode convergence criteria satisfied - no zombies left alive ! > ')
                 break
             end
+            
+            if outDist > (size - 1)
+                disp('Fast mode convergence criteria satisfied - outbreak has spread to second population');
+                break
+            end
         end
+
+        % Update outbreak progress
+        if OUT_POS == 'PD1'    
+            outDist = max(ENV_DATA.zombies_locs(:,1));
+        else
+            outDist = ENV_DATA.bm_size - (min(ENV_DATA.zombies_locs(:,1))) + 1;
+        end
+
+        IT_STATS.zdist(N_IT) = outDist;
     end
-eval(['save results_np_' num2str(np) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
+
+    plot_results(agent,nsteps,fmode,outImages, true);
+    speed = MAIN_SPEED;
+    time = MAIN_TIME;
+eval(['save results_pd1_pd2_' num2str(pd1) '_' num2str(pd2) '_nz_' num2str(nz) '.mat IT_STATS ENV_DATA' ]);
 clear global
