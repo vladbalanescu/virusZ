@@ -119,19 +119,19 @@ if (length(loc_zombies(:,1)) >= 1)
     
 %     If outside of the map, put on the edge
     if (nx > ENV_DATA.bm_size)
-        nx = ENV_DATA.bm_size - 1
+        nx = ENV_DATA.bm_size - 1;
     end
     
     if (ny > ENV_DATA.bm_size)
-        ny = ENV_DATA.bm_size - 1
+        ny = ENV_DATA.bm_size - 1;
     end
     
     if (nx <= 1)
-        nx = 1
+        nx = 1;
     end
     
     if (ny <= 1)
-        ny = 1
+        ny = 1;
     end
     
     

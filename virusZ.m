@@ -48,7 +48,7 @@ function [speed, time] = virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,    fmode,ou
     create_params;                      %sets the parameters for this simulation
     create_environment(size);           %creates environment data structure, given an environment size
     random_selection(1);                %randomises random number sequence (NOT agent order). If input=0, then simulation should be identical to previous for same initial values
-    [agent]=create_agents(pd1,pd2,nz, outbreakPos)       %create np person and nz zombie agents and places them in a cell array called 'agents'
+    [agent]=create_agents(pd1,pd2,nz, outbreakPos);       %create np person and nz zombie agents and places them in a cell array called 'agents'
     
     
     
@@ -75,7 +75,7 @@ function [speed, time] = virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,    fmode,ou
     
 
     
-    outDist = 0
+    outDist = 0;
     
     
     %MODEL EXECUTION
@@ -113,7 +113,7 @@ function [speed, time] = virusZ(size,pd1,pd2,nz, outbreakPos,nsteps,    fmode,ou
         if OUT_POS == 'PD1'    
             outDist = max(ENV_DATA.zombies_locs(:,1));
         else
-            outDist = ENV_DATA.bm_size - min(OUT_POS - ENV_DATA.zombies_locs);
+            outDist = ENV_DATA.bm_size - (min(ENV_DATA.zombies_locs(:,1))) + 1;
         end
 
         IT_STATS.zdist(N_IT) = outDist;

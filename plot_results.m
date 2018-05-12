@@ -30,15 +30,18 @@ function plot_results(agent,nsteps,fmode,outImages, final)
     disp(strcat('No. persons eaten = ',num2str(IT_STATS.eaten(N_IT+1))))
 
     if final
-        thisTime = num2str(N_IT)
-        thisSpeed = num2str(ENV_DATA.bm_size / N_IT)
+        final_IT = size(IT_STATS.zdist, 2)
+        thisTime = num2str(final_IT);
+        thisSpeed = num2str(IT_STATS.zdist(final_IT) / final_IT);
         
         disp('')
         disp('')
         disp('-- FINAL RESULT --')
         
-        if IT_STATS.zdist(N_IT - 1) > ENV_DATA.bm_size - 1
+        if IT_STATS.zdist(final_IT) > ENV_DATA.bm_size - 1
             disp('Outbreak has spread between the populations')
+        else
+            disp('Outbreak has not spread between the populations')
         end
 
         disp(strcat('Time: ', thisTime, 'days'))

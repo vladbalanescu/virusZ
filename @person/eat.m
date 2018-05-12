@@ -21,7 +21,7 @@ function [agt,eaten]=eat(agt,cn)
 
 
 global  ENV_DATA
-eaten = 0
+eaten = 0;
 
 % pos=agt.pos;                            %extract current position
 % cfood=agt.food;                         %get current agent food level

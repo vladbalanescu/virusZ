@@ -64,7 +64,7 @@ for i=0:bm_size - 1
     ylocs = (bm_size-2).*rand(pop_array(i + 1),1)+1;
     ploc = [ploc, cat(2,xlocs,ylocs)'];
 end
-ploc = ploc'
+ploc = ploc';
 
 
 
